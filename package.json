@@ -1,6 +1,6 @@
 {
   "name": "@lin09/image-scroll-vue",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "多图片自动左右滚动，移动触摸版，vue2.0版",
   "main": "main.js",
   "repository": {
