@@ -1,0 +1,19 @@
+{
+  "name": "@lin09/image-scroll-vue",
+  "version": "1.0.4",
+  "description": "多图片自动左右滚动，移动触摸版，vue2.0版",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lin09/image-scroll-vue0.2.git"
+  },
+  "keywords": [
+    "scroll"
+  ],
+  "author": "lin09",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lin09/image-scroll-vue0.2/issues"
+  },
+  "homepage": "https://github.com/lin09/image-scroll-vue0.2#readme"
+}
