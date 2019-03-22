@@ -260,6 +260,7 @@ export default {
   position: relative;
   width: 750px;
   overflow: hidden;
+  z-index: 1;
 }
 .images {
   display: flex;
