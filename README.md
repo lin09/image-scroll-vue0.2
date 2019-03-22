@@ -58,3 +58,5 @@ body {
   * :images="[{ imgUrl: 'url', href: 'url' }, ...]"
 * 高度
   * height="292px"
+* 底点
+  * pagination="false" // 隐藏
