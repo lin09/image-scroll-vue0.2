@@ -8,7 +8,7 @@
         <img :src="item.imgUrl"/>
       </a>
     </div>
-    <div class="pagination">
+    <div v-if="pagination" class="pagination">
       <div class="point" v-for="(item, i) in items" :key="i" :class="{ active: i === index }"></div>
     </div>
   </div>
@@ -19,7 +19,11 @@ export default {
   name: 'ImageScroll',
   props: {
     images: Array,
-    height: String
+    height: String,
+    pagination: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {
@@ -33,17 +37,19 @@ export default {
       // 回滚
       upMove: false,
       // 去掉动画，例如触摸定位使用
-      noAnimation: false,
-      // 触摸切换时存储时间等待，用于清除等待
-      touchendTime: ''
+      noAnimation: false
     }
   },
   created() {
-    window.i = this
     // 修正排序
     this.correct()
   },
   mounted () {
+    if (this.images.length < 2) {
+      this.move = false
+      return
+    }
+
     // 启动自动滚动
     this.start.timeout = setTimeout(this.start, 3000)
 
@@ -67,28 +73,20 @@ export default {
       removeEvent()
       // 停止全部等待
       this.stopTime()
-      // 还原动画
-      this.noAnimation = false
 
       if (evt.changedTouches[0].pageX <= startX) {
-        // 滚到下一个
-        this.$refs.images.style.transform = `translateX(${ - 2 * 750 }px)`
-        // 等待滚动完成
-        this.touchendTime = setTimeout(()=> {
-          // 滚动完成
-          // 记录下标
+        this.move = false
+        this.$refs.images.style.transform = `translateX(${ evt.changedTouches[0].pageX - startX }px)`
           this.index ++
           if (this.index >= this.items.length) {
             this.index = 0
           }
-          // 去掉 style.transform 时，停止动画
-          this.noAnimation = true
-          this.$refs.images.style.transform = ''
-          // 修正排序
           this.correct()
           .then(() => {
             // 还原动画
             this.noAnimation = false
+          this.move = true
+          this.$refs.images.style.transform = ``
             // 标记不停止
             this.isStop = false
             // 设置等待下一个滚动
@@ -96,8 +94,9 @@ export default {
             // 启动触摸事件
             addEvent()
           })
-        }, 500)
       } else {
+        // 还原动画
+        this.noAnimation = false
         // 去掉 style.transform ，这里不用停止动画，因为跟样式 up-move 一样值
         this.$refs.images.style.transform = ''
         // 调用滚动回上一个
@@ -137,7 +136,6 @@ export default {
       clearTimeout(this.start.timeout)
       clearTimeout(this.nextOrder.timeout)
       clearTimeout(this.up.timeout)
-      clearTimeout(this.touchendTime)
     },
     // 修正排序
     correct () {
