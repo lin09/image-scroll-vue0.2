@@ -4,7 +4,7 @@
       :class="{ move: move, 'up-move': upMove, 'no-animation': noAnimation }"
       :style="{ width: items.length + '00%' }"
       ref="images">
-      <a class="image" v-for="(item, i) in items" :key="i" :style="{ order: item.order, height: height }" :href="item.href">
+      <a class="image" v-for="(item, i) in items" :key="i" :style="{ order: item.order }" :href="item.href">
         <img :src="item.imgUrl"/>
       </a>
     </div>
@@ -19,7 +19,6 @@ export default {
   name: 'ImageScroll',
   props: {
     images: Array,
-    height: String,
     pagination: {
       type: Boolean,
       default: true
@@ -259,11 +258,13 @@ export default {
 .image-scroll {
   position: relative;
   width: 750px;
+  height: 292px;
   overflow: hidden;
   z-index: 1;
 }
 .images {
   display: flex;
+  height: 100%;
   transform: translateX(0);
 }
 .move {
@@ -279,7 +280,7 @@ export default {
 .image {
   padding: 0 24px;
   width: 750px;
-  height: 292px;
+  height: 100%;
 }
 img {
   width: 100%;

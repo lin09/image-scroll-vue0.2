@@ -17,7 +17,7 @@ npm i -D @lin09/image-scroll-vue
 
 <template>
   <div id="app">
-    <ImageScroll :images="images" height="292px" />
+    <ImageScroll :images="images"/>
   </div>
 </template>
 
@@ -56,7 +56,5 @@ body {
 ## 参数
 * 数据
   * :images="[{ imgUrl: 'url', href: 'url' }, ...]"
-* 高度
-  * height="292px"
 * 底点
   * pagination="false" // 隐藏
